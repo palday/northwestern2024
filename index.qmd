@@ -1,6 +1,8 @@
 ---
 title: "Using your mixed models to the fullest: moving beyond ANOVA-style thinking"
-format: revealjs
+format: 
+  revealjs:
+    embed-resources: true
 author:
   name: Phillip Alday
   email: me@phillipalday.com
