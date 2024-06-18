@@ -1,0 +1,134 @@
+---
+title: "Using your mixed models to the fullest: moving beyond ANOVA-style thinking (in EEG analyses)"
+format: revealjs
+author:
+    name: Phillip Alday
+    email: me@phillipalday.com
+    orcid: 0000-0002-9984-5745
+engine: julia
+julia:
+  exeflags: ["--project=.", "--threads=auto"]   
+execute:
+  cache: false    # inline results conflict with cache use
+  freeze: auto
+execute-dir: project
+bibliography: references.bib
+csl: apa-annotated-bibliography.csl
+github:
+  owner: palday
+  repo: northwestern2024 
+---
+
+# The Dirty Secret
+
+## ANOVA is regression. 
+
+More precisely, it's a computational trick to efficiently compute a particular type of nested model comparison under additional assumptions. 
+
+It wasn't a bad idea back in the day slide-rules and mechanical adding machine days. But all the extra assumptions (e.g. sphericity) and shortcuts aren't worth it with today's computing hardware. 
+
+## We've moved forward in computation but not thinking
+
+> We stop learning statistics after we finish our doctorates.
+
+But we use statistics like our mentors. And they learned ANOVA. So even when we advance the methods, we don't advance the thinking and the explaining.
+
+::: aside
+My former officemate said something to this effect many years ago.
+:::
+
+# Leaving ANOVA's legacy behind
+
+## Think in terms of effect sizes and not p-values
+
+- Mixed models give you an explicit estimate of effect size: the coefficient estimate!
+- If you want standardized effect sizes, then you can also standardize your coefficient
+- Confidence intervals give strictly more information than p-values and can also be used for significance testing.
+
+::: aside
+If you stop worrying about p-values, then you also don't have to worry about degrees of freedom and all the problems that they have in mixed models.
+:::
+
+## Think in terms of specific hypotheses and comparisons 
+
+- ANOVA encourages thinking in a weird omnibus + posthoc test framework
+    - "There was a significant difference somewhere between these 3 groups"
+    - let's follow that up with t-tests amongst all possible pairs 
+- Instead, we should be thinking of specific comparisons that we care about. 
+
+- Moreover, we can do all of this in a single step instead of in two stages.
+
+## Learn to love and leverage contrast coding
+
+- Got a hypothesis that A > B > C? Test that hypothesis directly!
+- Got a hypothesis that A != B? Test that!
+- Got a hypothesis that A > B and A > C, but don't care much about the relationship beween B and C? Test that! 
+- Make the intercept interesting again!
+- Too many options to discuss here, but contrast coding and centering and scaling of covaries should be part of your design [and not specifying it makes your analysis unintepretable @brehm:alday:contrasts:2022]
+
+## Treat population-/group-level and individual analyses holistically
+* in addition to the fixed effects, i.e. "population-level" estimates, mixed models also provide predictions about the individual grouping levels
+- these can be interpreted like individual estimates, but are technically predictions
+- there are sometimes called conditional modes, conditional means, or the best linear unbiased predictions (BLUPs) 
+
+--- 
+
+
+```{julia}
+#| label: setup
+#| echo: false
+#| output: hide
+using CairoMakie
+using DataFrames
+using MixedModels
+using MixedModelsMakie
+sleepstudy = MixedModels.dataset(:sleepstudy);
+```
+
+
+## General model fit
+
+```{julia}
+#| label: model
+#| echo: false
+model = fit(MixedModel, @formula(reaction ~ 1 + days + (1+days|subj)), sleepstudy, progress=false)
+```
+
+## BLUPs
+```{julia}
+#| label: raneftables
+#| echo: false
+DataFrame(raneftables(model)[:subj])
+```
+
+## Subject-level predictions
+
+```{julia}
+#| label: dotplot
+#| echo: false
+caterpillar(model)
+```
+
+## Comparison of individual regression vs mixed model
+
+```{julia}
+#| label: shrinkage
+#| echo: false
+shrinkageplot(model)
+```
+
+## Embrace continuous covariates
+- ANOVA forces discrete thinking, both in terms of signifance and in terms of predictors
+- Mixed models can handle continuous measures 
+- This allows you to control for additional potential confounders:
+    - screen brightness
+    - age
+    - reaction time
+    - presentation sequence
+- You dont have to assume a constant a priori impact of baseline [@alday:baseline:2019]
+
+# (fin*)
+
+## References
+
+https://embraceuncertaintybook.com/
