@@ -42,7 +42,7 @@ My former officemate said something to this effect many years ago.
 ## Think in terms of effect sizes and not p-values
 
 - Mixed models give you an explicit estimate of effect size: the coefficient estimate!
-- If you want standardized effect sizes, then you can also standardize your coefficient
+- If you want standardized effect sizes, then you can also standardize your coefficient.
 - Confidence intervals give strictly more information than p-values and can also be used for significance testing.
 
 ::: aside
@@ -65,9 +65,9 @@ If you stop worrying about p-values, then you also don't have to worry about deg
 - Make the intercept interesting again!
 - Too many options to discuss here, but contrast coding and centering and scaling of covaries should be part of your design [and not specifying it makes your analysis unintepretable @brehm:alday:contrasts:2022]
 
-## Treat population-/group-level and individual analyses holisticallym
+## Treat population-/group-level and individual analyses holistically
 
-* in addition to the fixed effects, i.e. "population-level" estimates, ixed models also provide predictions about the individual grouping levels
+* in addition to the fixed effects, i.e. "population-level" estimates, mixed models also provide predictions about the individual grouping levels
 - these can be interpreted like individual estimates, but are technically predictions
 - there are sometimes called conditional modes, conditional means, or the best linear unbiased predictions (BLUPs) 
 
@@ -119,7 +119,7 @@ shrinkageplot!(Figure(; size=(400, 400)), model)
 ```
 
 ## Embrace continuous covariates
-- ANOVA forces discrete thinking, both in terms of signifance and in terms of predictors
+- ANOVA forces discrete thinking, both in terms of significance and in terms of predictors
 - Mixed models can handle continuous measures 
 - This allows you to control for additional potential confounders:
     - screen brightness
