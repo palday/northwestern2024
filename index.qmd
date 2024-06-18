@@ -1,8 +1,6 @@
 ---
-title: "Using your mixed models to the fullest: moving beyond ANOVA-style thinking (in EEG analyses)"
-format: 
-  revealjs:
-    fig-align: center
+title: "Using your mixed models to the fullest: moving beyond ANOVA-style thinking"
+format: revealjs
 author:
   name: Phillip Alday
   email: me@phillipalday.com
@@ -67,13 +65,13 @@ If you stop worrying about p-values, then you also don't have to worry about deg
 - Make the intercept interesting again!
 - Too many options to discuss here, but contrast coding and centering and scaling of covaries should be part of your design [and not specifying it makes your analysis unintepretable @brehm:alday:contrasts:2022]
 
-## Treat population-/group-level and individual analyses holistically
-* in addition to the fixed effects, i.e. "population-level" estimates, mixed models also provide predictions about the individual grouping levels
+## Treat population-/group-level and individual analyses holisticallym
+
+* in addition to the fixed effects, i.e. "population-level" estimates, ixed models also provide predictions about the individual grouping levels
 - these can be interpreted like individual estimates, but are technically predictions
 - there are sometimes called conditional modes, conditional means, or the best linear unbiased predictions (BLUPs) 
 
 --- 
-
 
 ```{julia}
 #| label: setup
