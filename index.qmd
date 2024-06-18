@@ -1,10 +1,12 @@
 ---
 title: "Using your mixed models to the fullest: moving beyond ANOVA-style thinking (in EEG analyses)"
-format: revealjs
+format: 
+  revealjs:
+    fig-align: center
 author:
-    name: Phillip Alday
-    email: me@phillipalday.com
-    orcid: 0000-0002-9984-5745
+  name: Phillip Alday
+  email: me@phillipalday.com
+  orcid: 0000-0002-9984-5745
 engine: julia
 julia:
   exeflags: ["--project=.", "--threads=auto"]   
@@ -61,8 +63,7 @@ If you stop worrying about p-values, then you also don't have to worry about deg
 ## Learn to love and leverage contrast coding
 
 - Got a hypothesis that A > B > C? Test that hypothesis directly!
-- Got a hypothesis that A != B? Test that!
-- Got a hypothesis that A > B and A > C, but don't care much about the relationship beween B and C? Test that! 
+- Got a hypothesis that A != B and A != C? Test that!
 - Make the intercept interesting again!
 - Too many options to discuss here, but contrast coding and centering and scaling of covaries should be part of your design [and not specifying it makes your analysis unintepretable @brehm:alday:contrasts:2022]
 
@@ -106,7 +107,8 @@ DataFrame(raneftables(model)[:subj])
 ```{julia}
 #| label: dotplot
 #| echo: false
-caterpillar(model)
+#| fig-align: center
+caterpillar!(Figure(; size=(600, 400)), model)
 ```
 
 ## Comparison of individual regression vs mixed model
@@ -114,7 +116,8 @@ caterpillar(model)
 ```{julia}
 #| label: shrinkage
 #| echo: false
-shrinkageplot(model)
+#| fig-align: center
+shrinkageplot!(Figure(; size=(400, 400)), model)
 ```
 
 ## Embrace continuous covariates
@@ -122,12 +125,15 @@ shrinkageplot(model)
 - Mixed models can handle continuous measures 
 - This allows you to control for additional potential confounders:
     - screen brightness
-    - age
     - reaction time
     - presentation sequence
 - You dont have to assume a constant a priori impact of baseline [@alday:baseline:2019]
 
 # (fin*)
+
+thank you for attention
+
+any questions?
 
 ## References
 
