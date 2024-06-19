@@ -27,7 +27,7 @@ github:
 
 More precisely, it's a computational trick to efficiently compute a particular type of nested model comparison under additional assumptions. 
 
-It wasn't a bad idea back in the day slide-rules and mechanical adding machine days. But all the extra assumptions (e.g. sphericity) and shortcuts aren't worth it with today's computing hardware. 
+It wasn't a bad idea back in the slide-rules and mechanical adding machine days. But all the extra assumptions (e.g. sphericity) and shortcuts aren't worth it with today's computing hardware. 
 
 ## We've moved forward in computation but not thinking
 
